@@ -1,23 +1,25 @@
 package com.kurenkievtimur;
 
-import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        String mode = "enc";
+        int shift = 0;
+        String data = "";
 
-        String action = scanner.nextLine();
-
-        String text = scanner.nextLine();
-
-        int shift = scanner.nextInt();
+        for (int i = 0; i < args.length - 1; i++) {
+            switch (args[i]) {
+                case "-mode" -> mode = args[++i];
+                case "-key" -> shift = Integer.parseInt(args[++i]);
+                case "-data" -> data = args[++i];
+            }
+        }
 
         String cipher = "";
-        if (action.equals("enc")) {
-            cipher = encode(text, shift);
-        } else if (action.equals("dec")) {
-            cipher = decode(text, shift);
+        if (mode.equals("enc")) {
+            cipher = encode(data, shift);
+        } else if (mode.equals("dec")) {
+            cipher = decode(data, shift);
         }
 
         System.out.println(cipher);
